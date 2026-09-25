@@ -1,7 +1,7 @@
 {
   "name": "polandshop",
-  "version": "1.0.0",
-  "description": "Poland online shopping store with manual Skrill payments",
+  "version": "2.0.0",
+  "description": "PolandShop online store with MongoDB and manual Skrill payments",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
