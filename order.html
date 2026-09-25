@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Order - PolandShop</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 25px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .product-box {
+      background: #f3f4f6;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .product-box p {
+      margin: 7px 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 7px;
+      background: #16a34a;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #15803d;
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 7px;
+      display: none;
+      text-align: center;
+    }
+
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .payment-note {
+      margin-top: 18px;
+      padding: 14px;
+      background: #fff7ed;
+      border-left: 4px solid #f97316;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>PolandShop</h1>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>Place Your Order</h2>
+
+    <div class="product-box">
+      <p><strong>Product:</strong> <span id="productName">Loading...</span></p>
+      <p><strong>Price:</strong> USD <span id="productPrice">0.00</span></p>
+      <p><strong>Quantity:</strong> <span id="productQuantity">1</span></p>
+      <p><strong>Total:</strong> USD <span id="productTotal">0.00</span></p>
+    </div>
+
+    <form id="orderForm">
+
+      <label for="fullName">Full Name</label>
+      <input
+        type="text"
+        id="fullName"
+        name="fullName"
+        placeholder="Enter your full name"
+        required
+      >
+
+      <label for="phone">Phone Number</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="Enter your phone number"
+        required
+      >
+
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+      >
+
+      <label for="country">Country</label>
+      <input
+        type="text"
+        id="country"
+        name="country"
+        placeholder="Enter your country"
+        required
+      >
+
+      <label for="city">City / Town</label>
+      <input
+        type="text"
+        id="city"
+        name="city"
+        placeholder="Enter your city or town"
+        required
+      >
+
+      <label for="address">Delivery Address</label>
+      <textarea
+        id="address"
+        name="address"
+        placeholder="Enter your complete delivery address"
+        required
+      ></textarea>
+
+      <label for="notes">Additional Delivery Notes</label>
+      <textarea
+        id="notes"
+        name="notes"
+        placeholder="Optional delivery instructions"
+      ></textarea>
+
+      <div class="payment-note">
+        <strong>Payment:</strong><br>
+        After submitting your order, you will receive the payment instructions for completing payment through Skrill.
+      </div>
+
+      <button type="submit" id="submitButton">
+        Submit Order
+      </button>
+
+      <div id="message" class="message"></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  const productName =
+    params.get("product") ||
+    localStorage.getItem("productName") ||
+    "Selected Product";
+
+  const price =
+    parseFloat(
+      params.get("price") ||
+      localStorage
