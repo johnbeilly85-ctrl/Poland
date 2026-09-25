@@ -1,246 +1,298 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Order Received - PolandShop</title>  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-      min-height: 100vh;
-    }
+<title>Order Received - PolandShop</title>
 
-    header {
-      background: #111;
-      color: white;
-      padding: 16px 20px;
-      text-align: center;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    header h1 {
-      font-size: 23px;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
 
-    .container {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 0 15px;
-    }
+header {
+  background: #111;
+  color: white;
+  padding: 15px;
+}
 
-    .success-box {
-      background: white;
-      border-radius: 12px;
-      padding: 35px 25px;
-      text-align: center;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
+.header-inner {
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .check {
-      width: 75px;
-      height: 75px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      background: #16a34a;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 42px;
-      font-weight: bold;
-    }
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+}
 
-    h2 {
-      font-size: 25px;
-      margin-bottom: 15px;
-    }
+header a {
+  color: white;
+  text-decoration: none;
+}
 
-    .message {
-      color: #555;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+.container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 0 15px;
+}
 
-    .order-number {
-      background: #f8fafc;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 15px;
-      margin: 20px 0;
-    }
+.box {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 12px;
+  text-align: center;
+}
 
-    .order-number strong {
-      display: block;
-      margin-top: 7px;
-      font-size: 18px;
-    }
+.check {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #166534;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px;
+  font-size: 35px;
+  font-weight: bold;
+}
 
-    .payment {
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      border-radius: 8px;
-      padding: 18px;
-      text-align: left;
-      margin-top: 20px;
-      line-height: 1.6;
-    }
+h1 {
+  margin-bottom: 12px;
+}
 
-    .payment h3 {
-      margin-bottom: 10px;
-    }
+.reference {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
 
-    .skrill {
-      font-weight: bold;
-      font-size: 17px;
-      word-break: break-word;
-    }
+.reference strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 20px;
+}
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 25px;
-    }
+.payment {
+  margin-top: 20px;
+  padding: 18px;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  border-radius: 8px;
+}
 
-    .btn {
-      flex: 1;
-      padding: 13px;
-      border-radius: 7px;
-      text-decoration: none;
-      font-weight: bold;
-      text-align: center;
-    }
+.skrill {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 8px;
+  word-break: break-word;
+}
 
-    .home {
-      background: #111;
-      color: white;
-    }
+.total {
+  margin-top: 15px;
+  font-size: 19px;
+  font-weight: bold;
+}
 
-    .shop {
-      background: #16a34a;
-      color: white;
-    }
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
 
-    .note {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #777;
-      line-height: 1.5;
-    }
+.buttons a {
+  flex: 1;
+  padding: 13px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: bold;
+}
 
-    @media (max-width: 600px) {
-      .container {
-        margin: 25px auto;
-      }
+.home {
+  background: #111;
+  color: white;
+}
 
-      .success-box {
-        padding: 28px 18px;
-      }
+.shop {
+  background: #e11d48;
+  color: white;
+}
 
-      .buttons {
-        flex-direction: column;
-      }
-    }
-  </style></head><body><header>
-  <h1>PolandShop</h1>
-</header><div class="container">  <div class="success-box"><div class="check">✓</div>
-
-<h2>Order Received!</h2>
-
-<p class="message">
-  Thank you for shopping with PolandShop.
-  Your order has been successfully submitted.
-</p>
-
-<div class="order-number">
-  <span>Order Reference</span>
-  <strong id="orderId">Processing...</strong>
-</div>
-
-<div class="payment">
-
-  <h3>Skrill Payment</h3>
-
-  <p>
-    Please send your payment to our Skrill account:
-  </p>
-
-  <br>
-
-  <p class="skrill">
-    YOUR-SKRILL-EMAIL
-  </p>
-
-  <br>
-
-  <p>
-    Please use your order reference as the payment note
-    where possible.
-  </p>
-
-  <br>
-
-  <p>
-    Your order will remain pending until the payment is
-    manually confirmed.
-  </p>
-
-</div>
-
-<div class="buttons">
-
-  <a href="index.html" class="btn home">
-    Back to Home
-  </a>
-
-  <a href="products.html" class="btn shop">
-    Continue Shopping
-  </a>
-
-</div>
-
-<p class="note">
-  Once your Skrill payment has been confirmed, we will
-  process your order and arrange delivery using the
-  information you provided.
-</p>
-
-  </div></div><script>
-
-  const lastOrder =
-    JSON.parse(localStorage.getItem("lastOrder")) || null;
-
-  const orderIdElement =
-    document.getElementById("orderId");
-
-  if (lastOrder) {
-
-    if (lastOrder.orderId) {
-
-      orderIdElement.textContent =
-        lastOrder.orderId;
-
-    } else if (lastOrder._id) {
-
-      orderIdElement.textContent =
-        lastOrder._id;
-
-    } else {
-
-      orderIdElement.textContent =
-        "Order received";
-
-    }
-
-  } else {
-
-    orderIdElement.textContent =
-      "Order received";
-
+@media (max-width: 500px) {
+  .buttons {
+    flex-direction: column;
   }
+}
+</style>
+</head>
 
-</script></body>
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <div class="logo">
+      PolandShop
+    </div>
+
+    <a href="index.html">
+      Shop
+    </a>
+
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="box">
+
+    <div class="check">
+      ✓
+    </div>
+
+    <h1>
+      Order Received!
+    </h1>
+
+    <p>
+      Your order has been submitted successfully.
+    </p>
+
+    <div class="reference">
+
+      Order Reference:
+
+      <strong id="orderReference">
+        Loading...
+      </strong>
+
+    </div>
+
+    <div
+      id="total"
+      class="total"
+    ></div>
+
+    <div class="payment">
+
+      <strong>
+        Skrill Payment
+      </strong>
+
+      <p style="margin-top:8px;">
+        Please send your payment through Skrill to:
+      </p>
+
+      <div class="skrill">
+        cynthiakp4465@gmail.com
+      </div>
+
+      <p style="margin-top:10px;">
+        Your order will remain pending
+        until payment has been confirmed.
+      </p>
+
+    </div>
+
+    <div class="buttons">
+
+      <a
+        href="index.html"
+        class="home"
+      >
+        Home
+      </a>
+
+      <a
+        href="index.html"
+        class="shop"
+      >
+        Continue Shopping
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const referenceFromUrl =
+  params.get("orderId");
+
+let savedOrder = null;
+
+try {
+
+  savedOrder =
+    JSON.parse(
+      localStorage.getItem(
+        "lastOrder"
+      )
+    );
+
+} catch {
+
+  savedOrder = null;
+
+}
+
+const orderReference =
+  referenceFromUrl ||
+  (
+    savedOrder &&
+    (
+      savedOrder.orderReference ||
+      savedOrder._id
+    )
+  ) ||
+  "Order received";
+
+document
+  .getElementById(
+    "orderReference"
+  )
+  .textContent =
+  orderReference;
+
+if (
+  savedOrder &&
+  savedOrder.total !== undefined
+) {
+
+  document
+    .getElementById(
+      "total"
+    )
+    .textContent =
+    "Order Total: PLN " +
+    Number(
+      savedOrder.total
+    ).toFixed(2);
+
+}
+
+</script>
+
+</body>
 </html>
