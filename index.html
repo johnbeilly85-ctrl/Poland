@@ -1,881 +1,730 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PolandShop - Online Shopping</title>
+<title>PolandShop - Online Shopping</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
 
-    header {
-      background: #ffffff;
-      border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+header {
+  background: #111;
+  color: white;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-    .topbar {
-      background: #d50000;
-      color: white;
-      text-align: center;
-      padding: 7px;
-      font-size: 13px;
-    }
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .header-main {
-      max-width: 1200px;
-      margin: auto;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  white-space: nowrap;
+}
 
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #d50000;
-      white-space: nowrap;
-    }
+.search {
+  flex: 1;
+  padding: 11px;
+  border: none;
+  border-radius: 7px;
+  font-size: 15px;
+}
 
-    .logo span {
-      color: #222;
-    }
+.cart-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+}
 
-    .search-box {
-      flex: 1;
-      display: flex;
-      max-width: 650px;
-    }
+.hero {
+  background: #e11d48;
+  color: white;
+  padding: 42px 18px;
+}
 
-    .search-box input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #bbb;
-      border-right: none;
-      border-radius: 6px 0 0 6px;
-      font-size: 15px;
-      outline: none;
-    }
+.hero-inner {
+  max-width: 1100px;
+  margin: auto;
+}
 
-    .search-box button {
-      background: #d50000;
-      color: white;
-      border: none;
-      padding: 0 22px;
-      border-radius: 0 6px 6px 0;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.hero h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
 
-    .cart-button {
-      text-decoration: none;
-      color: #222;
-      font-weight: bold;
-      white-space: nowrap;
-    }
+.hero p {
+  line-height: 1.5;
+}
 
-    .cart-count {
-      background: #d50000;
-      color: white;
-      padding: 3px 7px;
-      border-radius: 20px;
-      font-size: 12px;
-    }
+.categories {
+  max-width: 1100px;
+  margin: 18px auto;
+  padding: 0 15px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
 
-    .categories {
-      background: white;
-      border-top: 1px solid #eee;
-      overflow-x: auto;
-    }
+.categories button {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 9px 15px;
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+}
 
-    .categories-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      gap: 10px;
-      padding: 10px 15px;
-    }
+.categories button.active {
+  background: #111;
+  color: white;
+}
 
-    .category-btn {
-      border: 1px solid #ddd;
-      background: white;
-      padding: 9px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 15px 35px;
+}
 
-    .category-btn:hover,
-    .category-btn.active {
-      background: #d50000;
-      color: white;
-      border-color: #d50000;
-    }
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
 
-    .hero {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 35px 25px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #d50000, #8b0000);
-      color: white;
-    }
+.product-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
 
-    .hero h1 {
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
+.product-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  background: #eee;
+}
 
-    .hero p {
-      font-size: 17px;
-      max-width: 650px;
-      line-height: 1.5;
-    }
+.product-body {
+  padding: 12px;
+}
 
-    .hero-button {
-      display: inline-block;
-      margin-top: 20px;
-      background: white;
-      color: #d50000;
-      padding: 12px 20px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+.product-name {
+  font-weight: bold;
+  min-height: 40px;
+}
 
-    .section {
-      max-width: 1200px;
-      margin: 25px auto;
-      padding: 0 15px;
-    }
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0;
+}
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
+.old-price {
+  color: #888;
+  text-decoration: line-through;
+  font-size: 13px;
+  margin-left: 5px;
+}
 
-    .section-header h2 {
-      font-size: 23px;
-    }
+.stock {
+  color: #666;
+  font-size: 13px;
+}
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
+.actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 11px;
+}
 
-    .product {
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #e2e2e2;
-      transition: 0.2s;
-    }
+.actions a,
+.actions button {
+  flex: 1;
+  padding: 9px;
+  border-radius: 6px;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .product:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+.view {
+  background: #eee;
+  color: #222;
+}
 
-    .product-image {
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
-      background: #eee;
-    }
+.add {
+  background: #111;
+  color: white;
+}
 
-    .product-info {
-      padding: 13px;
-    }
+.add:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
 
-    .product-category {
-      color: #777;
-      font-size: 12px;
-      margin-bottom: 5px;
-    }
+.empty {
+  background: white;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+}
 
-    .product-name {
-      font-size: 15px;
-      min-height: 38px;
-      margin-bottom: 8px;
-    }
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 20px;
+  border-radius: 8px;
+}
 
-    .price {
-      font-size: 20px;
-      font-weight: bold;
-      color: #d50000;
-    }
+@media (max-width: 850px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-    .old-price {
-      color: #888;
-      text-decoration: line-through;
-      font-size: 13px;
-      margin-left: 6px;
-    }
+@media (max-width: 600px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
 
-    .product-buttons {
-      display: flex;
-      gap: 7px;
-      margin-top: 12px;
-    }
+  .search {
+    order: 3;
+    flex-basis: 100%;
+  }
 
-    .product-buttons button,
-    .product-buttons a {
-      flex: 1;
-      padding: 10px 5px;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: bold;
-    }
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    .view-btn {
-      background: #eee;
-      color: #222;
-    }
+  .product-image {
+    height: 155px;
+  }
 
-    .add-btn {
-      background: #d50000;
-      color: white;
-    }
+  .hero h1 {
+    font-size: 27px;
+  }
+}
 
-    .loading {
-      text-align: center;
-      padding: 50px;
-      color: #777;
-    }
-
-    .empty {
-      background: white;
-      padding: 35px;
-      text-align: center;
-      border-radius: 8px;
-      color: #777;
-      grid-column: 1 / -1;
-    }
-
-    footer {
-      background: #222;
-      color: white;
-      margin-top: 50px;
-      padding: 35px 15px;
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-
-    footer h3 {
-      margin-bottom: 10px;
-    }
-
-    footer p {
-      color: #ccc;
-      line-height: 1.6;
-      font-size: 14px;
-    }
-
-    .copyright {
-      text-align: center;
-      border-top: 1px solid #444;
-      margin-top: 25px;
-      padding-top: 20px;
-      color: #aaa;
-      font-size: 13px;
-    }
-
-    @media (max-width: 900px) {
-      .products {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (max-width: 650px) {
-      .header-main {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .logo {
-        font-size: 24px;
-      }
-
-      .search-box {
-        order: 3;
-        flex-basis: 100%;
-      }
-
-      .hero {
-        margin: 10px;
-        padding: 25px 18px;
-      }
-
-      .hero h1 {
-        font-size: 27px;
-      }
-
-      .products {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-
-      .product-image {
-        height: 160px;
-      }
-
-      .product-info {
-        padding: 9px;
-      }
-
-      .price {
-        font-size: 17px;
-      }
-
-      .product-buttons {
-        flex-direction: column;
-      }
-
-      .footer-inner {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+@media (max-width: 380px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-
-  <div class="topbar">
-    Fast delivery across Poland • Prices shown in PLN
-  </div>
-
-  <div class="header-main">
+  <div class="header-inner">
 
     <div class="logo">
-      Poland<span>Shop</span>
+      PolandShop
     </div>
 
-    <div class="search-box">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products..."
-        oninput="searchProducts()"
-      >
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="Search products..."
+    >
 
-      <button onclick="searchProducts()">
-        Search
-      </button>
-    </div>
-
-    <a href="cart.html" class="cart-button">
-      🛒 Cart
-      <span id="cartCount" class="cart-count">0</span>
+    <a
+      href="cart.html"
+      class="cart-link"
+    >
+      Cart (<span id="cartCount">0</span>)
     </a>
 
   </div>
-
-  <div class="categories">
-
-    <div class="categories-inner">
-
-      <button
-        class="category-btn active"
-        onclick="filterCategory('All', this)"
-      >
-        All
-      </button>
-
-      <button
-        class="category-btn"
-        onclick="filterCategory('Electronics', this)"
-      >
-        Electronics
-      </button>
-
-      <button
-        class="category-btn"
-        onclick="filterCategory('Home', this)"
-      >
-        Home
-      </button>
-
-      <button
-        class="category-btn"
-        onclick="filterCategory('Fashion', this)"
-      >
-        Fashion
-      </button>
-
-      <button
-        class="category-btn"
-        onclick="filterCategory('Beauty', this)"
-      >
-        Beauty
-      </button>
-
-      <button
-        class="category-btn"
-        onclick="filterCategory('Sports', this)"
-      >
-        Sports
-      </button>
-
-      <button
-        class="category-btn"
-        onclick="filterCategory('Other', this)"
-      >
-        Other
-      </button>
-
-    </div>
-
-  </div>
-
 </header>
 
-
 <section class="hero">
+  <div class="hero-inner">
 
-  <h1>Shop Online in Poland</h1>
+    <h1>
+      Shop Online in Poland
+    </h1>
 
-  <p>
-    Discover great products at competitive prices.
-    Browse our collection, add your favourite products
-    to your cart and place your order online.
-  </p>
+    <p>
+      Browse our products and order using manual Skrill payment.
+    </p>
 
-  <a href="#products" class="hero-button">
-    Shop Now
-  </a>
-
+  </div>
 </section>
 
+<div
+  id="categories"
+  class="categories"
+></div>
 
-<section class="section" id="products">
+<main class="container">
 
-  <div class="section-header">
-
-    <h2>Featured Products</h2>
-
+  <div
+    id="products"
+    class="products"
+  >
+    Loading products...
   </div>
 
-  <div id="productsContainer" class="products">
-
-    <div class="loading">
-      Loading products...
-    </div>
-
-  </div>
-
-</section>
-
-
-<footer>
-
-  <div class="footer-inner">
-
-    <div>
-      <h3>PolandShop</h3>
-
-      <p>
-        Online shopping made simple for customers
-        across Poland.
-      </p>
-    </div>
-
-    <div>
-      <h3>Payment</h3>
-
-      <p>
-        Orders can be paid manually through Skrill.
-        Payment is verified before an order is processed.
-      </p>
-    </div>
-
-    <div>
-      <h3>Delivery</h3>
-
-      <p>
-        After payment confirmation, your order will
-        be prepared and delivery arranged to the
-        address provided during checkout.
-      </p>
-    </div>
-
-  </div>
-
-  <div class="copyright">
-    © 2026 PolandShop. All rights reserved.
-  </div>
-
-</footer>
-
+</main>
 
 <script>
 
-  let allProducts = [];
-  let currentCategory = "All";
+const CART_KEY = "polandShopCart";
 
-  // ==========================================
-  // LOAD PRODUCTS
-  // ==========================================
+let allProducts = [];
+let selectedCategory = "All";
 
-  async function loadProducts() {
+function $(id) {
+  return document.getElementById(id);
+}
 
-    const container =
-      document.getElementById("productsContainer");
+function money(value) {
+  return "PLN " + Number(value).toFixed(2);
+}
 
-    try {
+function escapeHtml(value) {
 
-      const response =
-        await fetch("/api/products");
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      function (character) {
 
-      if (!response.ok) {
-        throw new Error("Unable to load products.");
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[character];
+
       }
+    );
+}
 
-      allProducts = await response.json();
+function getCart() {
 
-      displayProducts(allProducts);
+  try {
 
-    } catch (error) {
+    return (
+      JSON.parse(
+        localStorage.getItem(
+          CART_KEY
+        )
+      ) || []
+    );
 
-      console.error(error);
+  } catch {
 
-      container.innerHTML = `
-        <div class="empty">
-          <h3>Unable to load products</h3>
-          <p>Please try again later.</p>
-        </div>
-      `;
-
-    }
+    return [];
 
   }
+}
 
+function updateCartCount() {
 
-  // ==========================================
-  // DISPLAY PRODUCTS
-  // ==========================================
+  const cart = getCart();
 
-  function displayProducts(products) {
+  const count =
+    cart.reduce(
+      function (total, item) {
 
-    const container =
-      document.getElementById("productsContainer");
+        return (
+          total +
+          Number(
+            item.quantity || 0
+          )
+        );
 
-    if (!products.length) {
+      },
+      0
+    );
 
-      container.innerHTML = `
-        <div class="empty">
-          <h3>No products available</h3>
-          <p>Products will appear here once they are added.</p>
-        </div>
-      `;
+  $("cartCount").textContent =
+    count;
+}
+
+function renderCategories() {
+
+  const categories = [
+    "All",
+    "Electronics",
+    "Home",
+    "Fashion",
+    "Beauty",
+    "Sports",
+    "Other"
+  ];
+
+  $("categories").innerHTML =
+    categories
+      .map(
+        function (category) {
+
+          return `
+            <button
+              class="${category === selectedCategory ? "active" : ""}"
+              data-category="${escapeHtml(category)}"
+            >
+              ${escapeHtml(category)}
+            </button>
+          `;
+
+        }
+      )
+      .join("");
+
+  document
+    .querySelectorAll(
+      "[data-category]"
+    )
+    .forEach(
+      function (button) {
+
+        button.onclick =
+          function () {
+
+            selectedCategory =
+              button.dataset.category;
+
+            renderCategories();
+            renderProducts();
+
+          };
+
+      }
+    );
+}
+
+function renderProducts() {
+
+  const search =
+    $("search")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const filtered =
+    allProducts.filter(
+      function (product) {
+
+        const matchesCategory =
+          selectedCategory === "All" ||
+          product.category ===
+            selectedCategory;
+
+        const matchesSearch =
+          !search ||
+          String(
+            product.name || ""
+          )
+            .toLowerCase()
+            .includes(search) ||
+          String(
+            product.description || ""
+          )
+            .toLowerCase()
+            .includes(search);
+
+        return (
+          matchesCategory &&
+          matchesSearch
+        );
+
+      }
+    );
+
+  if (!filtered.length) {
+
+    $("products").innerHTML = `
+      <div class="empty">
+        ${
+          allProducts.length
+            ? "No products match your search."
+            : "No products available yet."
+        }
+      </div>
+    `;
+
+    return;
+  }
+
+  $("products").innerHTML =
+    filtered
+      .map(
+        function (product) {
+
+          const price =
+            Number(
+              product.discountPrice &&
+              product.discountPrice <
+                product.price
+                ? product.discountPrice
+                : product.price
+            );
+
+          const image =
+            product.images &&
+            product.images.length
+              ? product.images[0]
+              : "https://via.placeholder.com/500x400?text=PolandShop";
+
+          return `
+            <article class="product-card">
+
+              <img
+                class="product-image"
+                src="${escapeHtml(image)}"
+                alt="${escapeHtml(product.name)}"
+              >
+
+              <div class="product-body">
+
+                <div class="product-name">
+                  ${escapeHtml(product.name)}
+                </div>
+
+                <div class="price">
+
+                  ${money(price)}
+
+                  ${
+                    product.discountPrice &&
+                    product.discountPrice <
+                      product.price
+                      ? `
+                        <span class="old-price">
+                          ${money(product.price)}
+                        </span>
+                      `
+                      : ""
+                  }
+
+                </div>
+
+                <div class="stock">
+
+                  ${
+                    Number(product.stock) > 0
+                      ? `${product.stock} in stock`
+                      : "Out of stock"
+                  }
+
+                </div>
+
+                <div class="actions">
+
+                  <a
+                    class="view"
+                    href="product.html?id=${encodeURIComponent(product._id)}"
+                  >
+                    View
+                  </a>
+
+                  <button
+                    class="add"
+                    data-add="${escapeHtml(product._id)}"
+                    ${
+                      Number(product.stock) < 1
+                        ? "disabled"
+                        : ""
+                    }
+                  >
+                    Add
+                  </button>
+
+                </div>
+
+              </div>
+
+            </article>
+          `;
+
+        }
+      )
+      .join("");
+
+  document
+    .querySelectorAll(
+      "[data-add]"
+    )
+    .forEach(
+      function (button) {
+
+        button.onclick =
+          function () {
+
+            addToCart(
+              button.dataset.add
+            );
+
+          };
+
+      }
+    );
+}
+
+function addToCart(productId) {
+
+  const product =
+    allProducts.find(
+      function (item) {
+
+        return (
+          String(item._id) ===
+          String(productId)
+        );
+
+      }
+    );
+
+  if (
+    !product ||
+    Number(product.stock) < 1
+  ) {
+    return;
+  }
+
+  const cart = getCart();
+
+  const existing =
+    cart.find(
+      function (item) {
+
+        return (
+          String(item.productId) ===
+          String(productId)
+        );
+
+      }
+    );
+
+  if (existing) {
+
+    if (
+      Number(existing.quantity) >=
+      Number(product.stock)
+    ) {
+
+      alert(
+        "You have reached the available stock."
+      );
 
       return;
     }
 
-    container.innerHTML = products.map(product => {
+    existing.quantity += 1;
 
-      const image =
-        product.images &&
-        product.images.length
-          ? product.images[0]
-          : "https://via.placeholder.com/500x400?text=Product";
+  } else {
 
-      const price =
-        Number(
-          product.discountPrice ??
-          product.price ??
-          0
-        ).toFixed(2);
-
-      const oldPrice =
+    const price =
+      Number(
         product.discountPrice &&
-        Number(product.discountPrice) < Number(product.price)
-          ? `
-            <span class="old-price">
-              ${Number(product.price).toFixed(2)} PLN
-            </span>
-          `
-          : "";
-
-      return `
-
-        <div class="product">
-
-          <img
-            class="product-image"
-            src="${image}"
-            alt="${escapeHtml(product.name)}"
-            onerror="this.src='https://via.placeholder.com/500x400?text=Product'"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              ${escapeHtml(product.category || "Other")}
-            </div>
-
-            <div class="product-name">
-              ${escapeHtml(product.name)}
-            </div>
-
-            <div>
-              <span class="price">
-                ${price} PLN
-              </span>
-
-              ${oldPrice}
-            </div>
-
-            <div class="product-buttons">
-
-              <a
-                class="view-btn"
-                href="product.html?id=${product._id}"
-              >
-                View
-              </a>
-
-              <button
-                class="add-btn"
-                onclick='addToCart(${JSON.stringify(product)})'
-              >
-                Add to Cart
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("");
-
-  }
-
-
-  // ==========================================
-  // SEARCH
-  // ==========================================
-
-  function searchProducts() {
-
-    const search =
-      document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
-
-    let filtered = allProducts;
-
-    if (currentCategory !== "All") {
-
-      filtered =
-        filtered.filter(product =>
-          String(product.category || "")
-            .toLowerCase() ===
-          currentCategory.toLowerCase()
-        );
-
-    }
-
-    if (search) {
-
-      filtered =
-        filtered.filter(product => {
-
-          const name =
-            String(product.name || "")
-              .toLowerCase();
-
-          const description =
-            String(product.description || "")
-              .toLowerCase();
-
-          const category =
-            String(product.category || "")
-              .toLowerCase();
-
-          return (
-            name.includes(search) ||
-            description.includes(search) ||
-            category.includes(search)
-          );
-
-        });
-
-    }
-
-    displayProducts(filtered);
-
-  }
-
-
-  // ==========================================
-  // CATEGORY
-  // ==========================================
-
-  function filterCategory(category, button) {
-
-    currentCategory = category;
-
-    document
-      .querySelectorAll(".category-btn")
-      .forEach(btn =>
-        btn.classList.remove("active")
+        product.discountPrice <
+          product.price
+          ? product.discountPrice
+          : product.price
       );
 
-    button.classList.add("active");
+    cart.push({
 
-    searchProducts();
+      productId:
+        String(product._id),
 
-  }
+      name:
+        product.name,
 
+      price,
 
-  // ==========================================
-  // CART
-  // ==========================================
+      image:
+        product.images?.[0] || "",
 
-  function getCart() {
+      quantity: 1
 
-    try {
-
-      return JSON.parse(
-        localStorage.getItem("polandShopCart")
-      ) || [];
-
-    } catch {
-
-      return [];
-
-    }
+    });
 
   }
 
-
-  function saveCart(cart) {
-
-    localStorage.setItem(
-      "polandShopCart",
-      JSON.stringify(cart)
-    );
-
-    updateCartCount();
-
-  }
-
-
-  function addToCart(product) {
-
-    const cart = getCart();
-
-    const existing =
-      cart.find(item =>
-        item._id === product._id
-      );
-
-    if (existing) {
-
-      existing.quantity += 1;
-
-    } else {
-
-      cart.push({
-        _id: product._id,
-        name: product.name,
-        price:
-          Number(
-            product.discountPrice ??
-            product.price ??
-            0
-          ),
-        image:
-          product.images &&
-          product.images.length
-            ? product.images[0]
-            : "",
-        quantity: 1
-      });
-
-    }
-
-    saveCart(cart);
-
-    alert("Product added to your cart.");
-
-  }
-
-
-  function updateCartCount() {
-
-    const cart = getCart();
-
-    const count =
-      cart.reduce(
-        (total, item) =>
-          total + Number(item.quantity || 0),
-        0
-      );
-
-    document.getElementById("cartCount").textContent =
-      count;
-
-  }
-
-
-  // ==========================================
-  // SECURITY / HTML ESCAPE
-  // ==========================================
-
-  function escapeHtml(value) {
-
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  // ==========================================
-  // START
-  // ==========================================
+  localStorage.setItem(
+    CART_KEY,
+    JSON.stringify(cart)
+  );
 
   updateCartCount();
 
-  loadProducts();
+  alert(
+    "Product added to cart."
+  );
+}
+
+async function loadProducts() {
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/products"
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message ||
+        "Unable to load products."
+      );
+    }
+
+    allProducts = data;
+
+    renderCategories();
+    renderProducts();
+
+  } catch (error) {
+
+    $("products").innerHTML = `
+      <div class="error">
+        ${escapeHtml(error.message)}
+      </div>
+    `;
+
+  }
+}
+
+$("search").addEventListener(
+  "input",
+  renderProducts
+);
+
+updateCartCount();
+
+loadProducts();
 
 </script>
 
