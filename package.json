@@ -1,0 +1,17 @@
+{
+  "name": "polandshop",
+  "version": "1.0.0",
+  "description": "Poland online shopping store with manual Skrill payments",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongodb": "^6.20.0",
+    "multer": "^2.0.2"
+  }
+}
