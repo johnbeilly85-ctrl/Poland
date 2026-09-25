@@ -1,0 +1,496 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PolandShop - Add Product</title>  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+    }
+
+    header {
+      background: #d50000;
+      color: white;
+      padding: 18px;
+    }
+
+    .header-inner {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #fff;
+      font-weight: normal;
+    }
+
+    .back {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #d50000;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .images-box {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      background: #fafafa;
+    }
+
+    .images-box input {
+      border: none;
+      padding: 10px 0;
+    }
+
+    .preview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .preview img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      background: #d50000;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background: #b50000;
+    }
+
+    .submit-btn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      padding: 13px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .success {
+      display: block;
+      background: #e7f7ed;
+      color: #187a3d;
+      border: 1px solid #b7e4c7;
+    }
+
+    .error {
+      display: block;
+      background: #fdeaea;
+      color: #b00020;
+      border: 1px solid #f3b5b5;
+    }
+
+    .products-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #d50000;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .preview {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style></head><body><header>
+  <div class="header-inner">
+    <div class="logo">
+      PolandShop
+    </div><a href="index.html" class="back">
+  ← View Store
+</a>
+
+  </div>
+</header><div class="container">  <div class="card"><h1>Add New Product</h1>
+
+<p class="subtitle">
+  Add a product that will appear automatically on the PolandShop store.
+</p>
+
+<div id="message" class="message"></div>
+
+<form id="productForm">
+
+  <div class="form-group">
+    <label for="name">Product Name</label>
+
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder="Example: Digital Air Purifier"
+      required
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="description">Product Description</label>
+
+    <textarea
+      id="description"
+      name="description"
+      placeholder="Describe the product..."
+    ></textarea>
+  </div>
+
+  <div class="row">
+
+    <div class="form-group">
+      <label for="category">Category</label>
+
+      <select id="category" name="category">
+        <option value="Electronics">Electronics</option>
+        <option value="Home">Home</option>
+        <option value="Fashion">Fashion</option>
+        <option value="Beauty">Beauty</option>
+        <option value="Sports">Sports</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="stock">Stock Quantity</label>
+
+      <input
+        type="number"
+        id="stock"
+        name="stock"
+        min="0"
+        value="1"
+        required
+      >
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group">
+      <label for="price">Price (PLN)</label>
+
+      <input
+        type="number"
+        id="price"
+        name="price"
+        min="0"
+        step="0.01"
+        placeholder="299.99"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="discountPrice">
+        Discount Price (PLN) — Optional
+      </label>
+
+      <input
+        type="number"
+        id="discountPrice"
+        name="discountPrice"
+        min="0"
+        step="0.01"
+        placeholder="249.99"
+      >
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Product Images</label>
+
+    <div class="images-box">
+
+      <p>
+        Select up to 10 product images.
+      </p>
+
+      <input
+        type="file"
+        id="images"
+        name="images"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        multiple
+      >
+
+    </div>
+
+    <div id="preview" class="preview"></div>
+
+  </div>
+
+  <button
+    type="submit"
+    id="submitBtn"
+    class="submit-btn"
+  >
+    Add Product
+  </button>
+
+</form>
+
+<a href="index.html" class="products-link">
+  ← Go back to store
+</a>
+
+  </div></div><script>
+
+  const form = document.getElementById("productForm");
+  const imageInput = document.getElementById("images");
+  const preview = document.getElementById("preview");
+  const message = document.getElementById("message");
+  const submitBtn = document.getElementById("submitBtn");
+
+  // ==========================================
+  // IMAGE PREVIEW
+  // ==========================================
+
+  imageInput.addEventListener("change", function () {
+
+    preview.innerHTML = "";
+
+    const files = Array.from(this.files);
+
+    if (files.length > 10) {
+
+      showMessage(
+        "You can upload a maximum of 10 images.",
+        "error"
+      );
+
+      this.value = "";
+      return;
+    }
+
+    files.forEach(file => {
+
+      if (!file.type.startsWith("image/")) {
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+
+        const img = document.createElement("img");
+
+        img.src = event.target.result;
+
+        preview.appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+
+    });
+
+  });
+
+  // ==========================================
+  // SUBMIT PRODUCT
+  // ==========================================
+
+  form.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+    message.className = "message";
+    message.textContent = "";
+
+    const name =
+      document.getElementById("name").value.trim();
+
+    const price =
+      document.getElementById("price").value;
+
+    if (!name || !price) {
+
+      showMessage(
+        "Product name and price are required.",
+        "error"
+      );
+
+      return;
+    }
+
+    const formData = new FormData(form);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Adding Product...";
+
+    try {
+
+      const response = await fetch(
+        "/api/admin/products",
+        {
+          method: "POST",
+          body: formData
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+
+        throw new Error(
+          data.message ||
+          "Unable to create product."
+        );
+      }
+
+      showMessage(
+        "Product added successfully!",
+        "success"
+      );
+
+      form.reset();
+
+      preview.innerHTML = "";
+
+      setTimeout(() => {
+
+        window.location.href = "index.html";
+
+      }, 1500);
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        error.message ||
+        "Something went wrong while adding the product.",
+        "error"
+      );
+
+    } finally {
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Add Product";
+
+    }
+
+  });
+
+  // ==========================================
+  // MESSAGE
+  // ==========================================
+
+  function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className =
+      "message " + type;
+
+  }
+
+</script></body>
+</html>
