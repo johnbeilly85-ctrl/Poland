@@ -1,851 +1,797 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Product - PolandShop</title>  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-    }
+<title>Product - PolandShop</title>
 
-    header {
-      background: white;
-      border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    .topbar {
-      background: #d50000;
-      color: white;
-      text-align: center;
-      padding: 7px;
-      font-size: 13px;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
 
-    .header-main {
-      max-width: 1200px;
-      margin: auto;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
+header {
+  background: #111;
+  color: white;
+  padding: 15px;
+}
 
-    .logo {
-      font-size: 27px;
-      font-weight: bold;
-      color: #d50000;
-    }
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
 
-    .logo span {
-      color: #222;
-    }
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+}
 
-    .cart-button {
-      text-decoration: none;
-      color: #222;
-      font-weight: bold;
-    }
+header a {
+  color: white;
+  text-decoration: none;
+}
 
-    .cart-count {
-      background: #d50000;
-      color: white;
-      padding: 3px 7px;
-      border-radius: 20px;
-      font-size: 12px;
-    }
+.container {
+  max-width: 1000px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
 
-    .container {
-      max-width: 1100px;
-      margin: 30px auto;
-      padding: 0 15px;
-    }
+.product {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
 
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #d50000;
-      text-decoration: none;
-      font-weight: bold;
-    }
+.gallery-main {
+  width: 100%;
+  height: 430px;
+  object-fit: contain;
+  background: #f1f1f1;
+  border-radius: 10px;
+}
 
-    .product-card {
-      background: white;
-      border-radius: 10px;
-      padding: 25px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 35px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
+.thumbnails {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  overflow-x: auto;
+}
 
-    .main-image {
-      width: 100%;
-      height: 450px;
-      object-fit: contain;
-      background: #f3f3f3;
-      border-radius: 8px;
-    }
+.thumbnail {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin-top: 10px;
-    }
+.thumbnail.active {
+  border-color: #111;
+}
 
-    .gallery img {
-      width: 100%;
-      height: 75px;
-      object-fit: cover;
-      border: 2px solid transparent;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+h1 {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
 
-    .gallery img.active {
-      border-color: #d50000;
-    }
+.category {
+  color: #666;
+  margin-bottom: 12px;
+}
 
-    .category {
-      color: #777;
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
+.description {
+  line-height: 1.6;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+}
 
-    h1 {
-      font-size: 30px;
-      margin-bottom: 15px;
-    }
+.price {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
 
-    .description {
-      color: #555;
-      line-height: 1.7;
-      margin-bottom: 20px;
-      white-space: pre-line;
-    }
+.old-price {
+  color: #888;
+  text-decoration: line-through;
+  font-size: 17px;
+  margin-left: 8px;
+}
 
-    .price {
-      font-size: 29px;
-      font-weight: bold;
-      color: #d50000;
-    }
+.stock {
+  margin: 12px 0;
+  color: #555;
+}
 
-    .old-price {
-      color: #888;
-      text-decoration: line-through;
-      margin-left: 8px;
-      font-size: 16px;
-    }
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
 
-    .stock {
-      margin-top: 15px;
-      font-size: 14px;
-    }
+.quantity button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #ddd;
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+}
 
-    .in-stock {
-      color: #188038;
-      font-weight: bold;
-    }
+.quantity input {
+  width: 70px;
+  height: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
 
-    .out-stock {
-      color: #d50000;
-      font-weight: bold;
-    }
+.buttons {
+  display: flex;
+  gap: 10px;
+}
 
-    .quantity-box {
-      margin-top: 20px;
-    }
+.buttons button,
+.buttons a {
+  flex: 1;
+  padding: 13px;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-    .quantity-box label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 7px;
-    }
+.add {
+  background: #111;
+  color: white;
+}
 
-    .quantity-controls {
-      display: flex;
-      width: 140px;
-    }
+.buy {
+  background: #e11d48;
+  color: white;
+}
 
-    .quantity-controls button {
-      width: 40px;
-      border: 1px solid #ccc;
-      background: #eee;
-      font-size: 20px;
-      cursor: pointer;
-    }
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
 
-    .quantity-controls input {
-      width: 60px;
-      text-align: center;
-      border: 1px solid #ccc;
-      border-left: none;
-      border-right: none;
-      font-size: 16px;
-    }
+.message {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 7px;
+  display: none;
+}
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 25px;
-    }
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
 
-    .buttons button {
-      flex: 1;
-      padding: 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 15px;
-    }
+.success {
+  background: #dcfce7;
+  color: #166534;
+}
 
-    .cart-btn {
-      background: #eee;
-      color: #222;
-    }
+.loading,
+.not-found {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+}
 
-    .buy-btn {
-      background: #d50000;
-      color: white;
-    }
+@media (max-width: 700px) {
+  .product {
+    grid-template-columns: 1fr;
+  }
 
-    .buttons button:disabled {
-      background: #aaa;
-      cursor: not-allowed;
-    }
+  .gallery-main {
+    height: 320px;
+  }
 
-    .loading,
-    .error {
-      background: white;
-      padding: 50px;
-      text-align: center;
-      border-radius: 10px;
-    }
+  h1 {
+    font-size: 25px;
+  }
+}
+</style>
+</head>
 
-    .error h2 {
-      color: #d50000;
-      margin-bottom: 10px;
-    }
+<body>
 
-    footer {
-      margin-top: 50px;
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 25px;
-    }
+<header>
+  <div class="header-inner">
+    <div class="logo">PolandShop</div>
 
-    footer p {
-      color: #bbb;
-      font-size: 14px;
-    }
+    <a href="cart.html">
+      Cart (<span id="cartCount">0</span>)
+    </a>
+  </div>
+</header>
 
-    @media (max-width: 750px) {
+<main class="container">
 
-      .product-card {
-        grid-template-columns: 1fr;
-        padding: 18px;
-        gap: 20px;
-      }
+  <div id="content" class="loading">
+    Loading product...
+  </div>
 
-      .main-image {
-        height: 330px;
-      }
+</main>
 
-      h1 {
-        font-size: 25px;
-      }
+<script>
 
-      .buttons {
-        flex-direction: column;
-      }
+const CART_KEY = "polandShopCart";
 
-    }
-  </style></head><body><header>  <div class="topbar">
-    Fast delivery across Poland • Prices shown in PLN
-  </div>  <div class="header-main"><div class="logo">
-  Poland<span>Shop</span>
-</div>
-
-<a href="cart.html" class="cart-button">
-  🛒 Cart
-  <span id="cartCount" class="cart-count">0</span>
-</a>
-
-  </div></header><div class="container">  <a href="index.html" class="back-link">
-    ← Back to Store
-  </a>  <div id="content"><div class="loading">
-  Loading product...
-</div>
-
-  </div></div><footer>  <p>
-    © 2026 PolandShop. All rights reserved.
-  </p></footer><script>
-
-  let product = null;
-
-  // ==========================================
-  // GET PRODUCT ID
-  // ==========================================
-
-  const params = new URLSearchParams(
+const params =
+  new URLSearchParams(
     window.location.search
   );
 
-  const productId = params.get("id");
+const productId =
+  params.get("id");
 
+let product = null;
+let quantity = 1;
 
-  // ==========================================
-  // LOAD PRODUCT
-  // ==========================================
+function $(id) {
+  return document.getElementById(id);
+}
 
-  async function loadProduct() {
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      function(character) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[character];
+      }
+    );
+}
 
-    const content =
-      document.getElementById("content");
+function money(value) {
+  return "PLN " +
+    Number(value).toFixed(2);
+}
 
-    if (!productId) {
+function getCart() {
+  try {
+    return JSON.parse(
+      localStorage.getItem(
+        CART_KEY
+      )
+    ) || [];
+  } catch {
+    return [];
+  }
+}
 
-      content.innerHTML = `
-        <div class="error">
-          <h2>Product Not Found</h2>
-          <p>No product ID was provided.</p>
-        </div>
-      `;
+function saveCart(cart) {
+  localStorage.setItem(
+    CART_KEY,
+    JSON.stringify(cart)
+  );
+}
 
-      return;
-    }
+function updateCartCount() {
 
-    try {
+  const cart = getCart();
 
-      const response = await fetch(
-        "/api/products/" +
-        encodeURIComponent(productId)
-      );
+  const count =
+    cart.reduce(
+      function(total, item) {
+        return total +
+          Number(item.quantity || 0);
+      },
+      0
+    );
 
-      const data = await response.json();
+  $("cartCount").textContent =
+    count;
+}
 
-      if (!response.ok) {
+function getPrice(product) {
 
-        throw new Error(
-          data.message ||
-          "Unable to load product."
+  const normal =
+    Number(product.price);
+
+  const discount =
+    Number(product.discountPrice);
+
+  if (
+    Number.isFinite(discount) &&
+    discount > 0 &&
+    discount < normal
+  ) {
+    return discount;
+  }
+
+  return normal;
+}
+
+function showMessage(
+  message,
+  type
+) {
+
+  const box =
+    $("message");
+
+  box.textContent =
+    message;
+
+  box.className =
+    "message " + type;
+
+  box.style.display =
+    "block";
+}
+
+function changeQuantity(amount) {
+
+  if (!product) return;
+
+  quantity += amount;
+
+  const stock =
+    Number(product.stock);
+
+  if (quantity < 1) {
+    quantity = 1;
+  }
+
+  if (quantity > stock) {
+    quantity = stock;
+  }
+
+  $("quantity").value =
+    quantity;
+}
+
+function setQuantity(value) {
+
+  if (!product) return;
+
+  const stock =
+    Number(product.stock);
+
+  let newQuantity =
+    Number(value);
+
+  if (
+    !Number.isInteger(
+      newQuantity
+    )
+  ) {
+    newQuantity = 1;
+  }
+
+  newQuantity =
+    Math.max(
+      1,
+      Math.min(
+        stock,
+        newQuantity
+      )
+    );
+
+  quantity =
+    newQuantity;
+
+  $("quantity").value =
+    quantity;
+}
+
+function addToCart(
+  goToCheckout = false
+) {
+
+  if (!product) return;
+
+  const stock =
+    Number(product.stock);
+
+  if (stock < 1) {
+    showMessage(
+      "This product is out of stock.",
+      "error"
+    );
+    return;
+  }
+
+  const cart =
+    getCart();
+
+  const existing =
+    cart.find(
+      function(item) {
+        return String(
+          item.productId
+        ) === String(
+          product._id
         );
       }
-
-      product = data;
-
-      displayProduct(product);
-
-    } catch (error) {
-
-      console.error(error);
-
-      content.innerHTML = `
-        <div class="error">
-          <h2>Unable to Load Product</h2>
-          <p>${escapeHtml(error.message)}</p>
-          <br>
-          <a href="index.html">
-            Return to store
-          </a>
-        </div>
-      `;
-
-    }
-
-  }
-
-
-  // ==========================================
-  // DISPLAY PRODUCT
-  // ==========================================
-
-  function displayProduct(product) {
-
-    const content =
-      document.getElementById("content");
-
-    const images =
-      product.images &&
-      product.images.length
-        ? product.images
-        : [
-            "https://via.placeholder.com/700x500?text=Product"
-          ];
-
-    const currentPrice =
-      Number(
-        product.discountPrice ??
-        product.price ??
-        0
-      );
-
-    const hasDiscount =
-      product.discountPrice !== null &&
-      product.discountPrice !== undefined &&
-      Number(product.discountPrice) <
-      Number(product.price);
-
-    const oldPrice =
-      hasDiscount
-        ? `
-          <span class="old-price">
-            ${Number(product.price).toFixed(2)} PLN
-          </span>
-        `
-        : "";
-
-    const stock =
-      Number(product.stock || 0);
-
-    content.innerHTML = `
-
-      <div class="product-card">
-
-        <div>
-
-          <img
-            id="mainImage"
-            class="main-image"
-            src="${escapeHtml(images[0])}"
-            alt="${escapeHtml(product.name)}"
-            onerror="this.src='https://via.placeholder.com/700x500?text=Product'"
-          >
-
-          <div class="gallery">
-
-            ${images.map((image, index) => `
-
-              <img
-                src="${escapeHtml(image)}"
-                class="${index === 0 ? "active" : ""}"
-                onclick="changeImage('${escapeJs(image)}', this)"
-                alt="Product image"
-                onerror="this.style.display='none'"
-              >
-
-            `).join("")}
-
-          </div>
-
-        </div>
-
-
-        <div>
-
-          <div class="category">
-            ${escapeHtml(product.category || "Other")}
-          </div>
-
-          <h1>
-            ${escapeHtml(product.name)}
-          </h1>
-
-          <div class="description">
-            ${escapeHtml(
-              product.description ||
-              "No description available."
-            )}
-          </div>
-
-          <div>
-
-            <span class="price">
-              ${currentPrice.toFixed(2)} PLN
-            </span>
-
-            ${oldPrice}
-
-          </div>
-
-
-          <div class="stock">
-
-            ${
-              stock > 0
-                ? `
-                  <span class="in-stock">
-                    ✓ In Stock
-                  </span>
-                  <br>
-                  ${stock} available
-                `
-                : `
-                  <span class="out-stock">
-                    Out of Stock
-                  </span>
-                `
-            }
-
-          </div>
-
-
-          ${
-            stock > 0
-              ? `
-
-                <div class="quantity-box">
-
-                  <label>
-                    Quantity
-                  </label>
-
-                  <div class="quantity-controls">
-
-                    <button
-                      type="button"
-                      onclick="changeQuantity(-1)"
-                    >
-                      −
-                    </button>
-
-                    <input
-                      type="number"
-                      id="quantity"
-                      value="1"
-                      min="1"
-                      max="${stock}"
-                    >
-
-                    <button
-                      type="button"
-                      onclick="changeQuantity(1)"
-                    >
-                      +
-                    </button>
-
-                  </div>
-
-                </div>
-
-
-                <div class="buttons">
-
-                  <button
-                    class="cart-btn"
-                    onclick="addToCart()"
-                  >
-                    Add to Cart
-                  </button>
-
-                  <button
-                    class="buy-btn"
-                    onclick="buyNow()"
-                  >
-                    Buy Now
-                  </button>
-
-                </div>
-
-              `
-              : `
-                <div class="buttons">
-
-                  <button
-                    class="buy-btn"
-                    disabled
-                  >
-                    Out of Stock
-                  </button>
-
-                </div>
-              `
-          }
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  // ==========================================
-  // CHANGE IMAGE
-  // ==========================================
-
-  function changeImage(image, thumbnail) {
-
-    const mainImage =
-      document.getElementById("mainImage");
-
-    if (mainImage) {
-      mainImage.src = image;
-    }
-
-    document
-      .querySelectorAll(".gallery img")
-      .forEach(img =>
-        img.classList.remove("active")
-      );
-
-    thumbnail.classList.add("active");
-
-  }
-
-
-  // ==========================================
-  // QUANTITY
-  // ==========================================
-
-  function changeQuantity(amount) {
-
-    const input =
-      document.getElementById("quantity");
-
-    if (!input) return;
-
-    let quantity =
-      Number(input.value || 1);
-
-    quantity += amount;
-
-    const max =
-      Number(input.max || 999);
-
-    if (quantity < 1) {
-      quantity = 1;
-    }
-
-    if (quantity > max) {
-      quantity = max;
-    }
-
-    input.value = quantity;
-
-  }
-
-
-  // ==========================================
-  // CART
-  // ==========================================
-
-  function getCart() {
-
-    try {
-
-      return JSON.parse(
-        localStorage.getItem(
-          "polandShopCart"
-        )
-      ) || [];
-
-    } catch {
-
-      return [];
-
-    }
-
-  }
-
-
-  function saveCart(cart) {
-
-    localStorage.setItem(
-      "polandShopCart",
-      JSON.stringify(cart)
     );
 
-    updateCartCount();
+  const existingQuantity =
+    existing
+      ? Number(existing.quantity)
+      : 0;
 
-  }
+  if (
+    existingQuantity +
+    quantity >
+    stock
+  ) {
 
-
-  function addToCart() {
-
-    if (!product) return;
-
-    const quantityInput =
-      document.getElementById("quantity");
-
-    const quantity =
-      Number(
-        quantityInput?.value || 1
-      );
-
-    const cart = getCart();
-
-    const existing =
-      cart.find(
-        item =>
-          item._id === product._id
-      );
-
-    const price =
-      Number(
-        product.discountPrice ??
-        product.price ??
-        0
-      );
-
-    if (existing) {
-
-      existing.quantity += quantity;
-
-    } else {
-
-      cart.push({
-
-        _id: product._id,
-
-        name: product.name,
-
-        price: price,
-
-        image:
-          product.images &&
-          product.images.length
-            ? product.images[0]
-            : "",
-
-        quantity: quantity
-
-      });
-
-    }
-
-    saveCart(cart);
-
-    alert(
-      "Product added to your cart."
+    showMessage(
+      `Only ${stock} item(s) are available.`,
+      "error"
     );
 
+    return;
   }
 
+  const price =
+    getPrice(product);
 
-  // ==========================================
-  // BUY NOW
-  // ==========================================
+  if (existing) {
 
-  function buyNow() {
+    existing.quantity =
+      existingQuantity +
+      quantity;
 
-    if (!product) return;
+    existing.price =
+      price;
 
-    const quantityInput =
-      document.getElementById("quantity");
+    existing.name =
+      product.name;
 
-    const quantity =
-      Number(
-        quantityInput?.value || 1
-      );
+    existing.image =
+      product.images?.[0] || "";
 
-    const cart = [];
+  } else {
 
     cart.push({
+      productId:
+        String(product._id),
 
-      _id: product._id,
+      name:
+        product.name,
 
-      name: product.name,
-
-      price:
-        Number(
-          product.discountPrice ??
-          product.price ??
-          0
-        ),
+      price,
 
       image:
-        product.images &&
-        product.images.length
-          ? product.images[0]
-          : "",
+        product.images?.[0] || "",
 
-      quantity: quantity
-
+      quantity
     });
 
-    localStorage.setItem(
-      "polandShopCart",
-      JSON.stringify(cart)
-    );
-
-    window.location.href =
-      "cart.html";
-
   }
 
-
-  // ==========================================
-  // CART COUNT
-  // ==========================================
-
-  function updateCartCount() {
-
-    const cart = getCart();
-
-    const count =
-      cart.reduce(
-        (total, item) =>
-          total +
-          Number(item.quantity || 0),
-        0
-      );
-
-    const element =
-      document.getElementById(
-        "cartCount"
-      );
-
-    if (element) {
-      element.textContent = count;
-    }
-
-  }
-
-
-  // ==========================================
-  // SECURITY
-  // ==========================================
-
-  function escapeHtml(value) {
-
-    return String(value)
-
-      .replace(/&/g, "&amp;")
-
-      .replace(/</g, "&lt;")
-
-      .replace(/>/g, "&gt;")
-
-      .replace(/"/g, "&quot;")
-
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  function escapeJs(value) {
-
-    return String(value)
-      .replace(/\\/g, "\\\\")
-      .replace(/'/g, "\\'")
-      .replace(/"/g, "&quot;")
-      .replace(/\n/g, "\\n")
-      .replace(/\r/g, "\\r");
-
-  }
-
-
-  // ==========================================
-  // START
-  // ==========================================
+  saveCart(cart);
 
   updateCartCount();
 
-  loadProduct();
+  if (goToCheckout) {
+    window.location.href =
+      "checkout.html";
+    return;
+  }
 
-</script></body>
+  showMessage(
+    "Product added to cart.",
+    "success"
+  );
+}
+
+function renderProduct() {
+
+  const price =
+    getPrice(product);
+
+  const images =
+    Array.isArray(
+      product.images
+    )
+      ? product.images
+      : [];
+
+  const mainImage =
+    images[0] ||
+    "https://via.placeholder.com/600x500?text=PolandShop";
+
+  $("content").className =
+    "product";
+
+  $("content").innerHTML = `
+
+    <section>
+
+      <img
+        id="mainImage"
+        class="gallery-main"
+        src="${escapeHtml(mainImage)}"
+        alt="${escapeHtml(product.name)}"
+      >
+
+      <div class="thumbnails">
+
+        ${
+          images.length
+            ? images.map(
+                function(image, index) {
+                  return `
+                    <img
+                      class="thumbnail ${
+                        index === 0
+                          ? "active"
+                          : ""
+                      }"
+                      src="${escapeHtml(image)}"
+                      data-image="${escapeHtml(image)}"
+                      alt=""
+                    >
+                  `;
+                }
+              ).join("")
+            : ""
+        }
+
+      </div>
+
+    </section>
+
+    <section>
+
+      <div class="category">
+        ${escapeHtml(
+          product.category || "Other"
+        )}
+      </div>
+
+      <h1>
+        ${escapeHtml(product.name)}
+      </h1>
+
+      <div class="price">
+
+        ${money(price)}
+
+        ${
+          product.discountPrice &&
+          product.discountPrice <
+            product.price
+            ? `
+              <span class="old-price">
+                ${money(product.price)}
+              </span>
+            `
+            : ""
+        }
+
+      </div>
+
+      <div class="stock">
+
+        ${
+          Number(product.stock) > 0
+            ? `${product.stock} item(s) available`
+            : "Out of stock"
+        }
+
+      </div>
+
+      <div class="description">
+        ${escapeHtml(
+          product.description ||
+          "No description available."
+        )}
+      </div>
+
+      ${
+        Number(product.stock) > 0
+          ? `
+            <div class="quantity">
+
+              <button id="minus">
+                −
+              </button>
+
+              <input
+                id="quantity"
+                type="number"
+                min="1"
+                max="${Number(product.stock)}"
+                value="1"
+              >
+
+              <button id="plus">
+                +
+              </button>
+
+            </div>
+
+            <div class="buttons">
+
+              <button
+                id="addButton"
+                class="add"
+              >
+                Add to Cart
+              </button>
+
+              <button
+                id="buyButton"
+                class="buy"
+              >
+                Buy Now
+              </button>
+
+            </div>
+          `
+          : `
+            <div class="buttons">
+              <button
+                class="add"
+                disabled
+              >
+                Out of Stock
+              </button>
+            </div>
+          `
+      }
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+    </section>
+  `;
+
+  document
+    .querySelectorAll(".thumbnail")
+    .forEach(
+      function(thumbnail) {
+
+        thumbnail.onclick =
+          function() {
+
+            $("mainImage").src =
+              thumbnail.dataset.image;
+
+            document
+              .querySelectorAll(
+                ".thumbnail"
+              )
+              .forEach(
+                img =>
+                  img.classList.remove(
+                    "active"
+                  )
+              );
+
+            thumbnail.classList.add(
+              "active"
+            );
+          };
+      }
+    );
+
+  if (
+    Number(product.stock) > 0
+  ) {
+
+    $("minus").onclick =
+      function() {
+        changeQuantity(-1);
+      };
+
+    $("plus").onclick =
+      function() {
+        changeQuantity(1);
+      };
+
+    $("quantity").onchange =
+      function() {
+        setQuantity(
+          $("quantity").value
+        );
+      };
+
+    $("addButton").onclick =
+      function() {
+        addToCart(false);
+      };
+
+    $("buyButton").onclick =
+      function() {
+        addToCart(true);
+      };
+  }
+}
+
+async function loadProduct() {
+
+  if (!productId) {
+
+    $("content").className =
+      "not-found";
+
+    $("content").innerHTML =
+      "Product ID is missing.";
+
+    return;
+  }
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/products/" +
+        encodeURIComponent(
+          productId
+        )
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message ||
+        "Product not found."
+      );
+    }
+
+    product = data;
+
+    renderProduct();
+
+  } catch (error) {
+
+    $("content").className =
+      "not-found";
+
+    $("content").innerHTML =
+      escapeHtml(
+        error.message
+      );
+  }
+}
+
+updateCartCount();
+
+loadProduct();
+
+</script>
+
+</body>
 </html>
