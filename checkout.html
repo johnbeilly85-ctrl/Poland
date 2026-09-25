@@ -1,476 +1,620 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - PolandShop</title>  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-    }
+<title>Checkout - PolandShop</title>
 
-    header {
-      background: #111;
-      color: white;
-      padding: 16px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    header h1 {
-      font-size: 22px;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
 
-    header a {
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
-    }
+header {
+  background: #111;
+  color: white;
+  padding: 15px;
+}
 
-    .container {
-      max-width: 900px;
-      margin: 25px auto;
-      padding: 0 15px;
-    }
+.header-inner {
+  max-width: 1050px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .box {
-      background: white;
-      padding: 22px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+}
 
-    h2 {
-      margin-bottom: 18px;
-      font-size: 21px;
-    }
+header a {
+  color: white;
+  text-decoration: none;
+}
 
-    label {
-      display: block;
-      margin-top: 14px;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
+.container {
+  max-width: 1050px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
-    }
+.layout {
+  display: grid;
+  grid-template-columns: 1.3fr .7fr;
+  gap: 20px;
+}
 
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
 
-    .order-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 12px 0;
-      border-bottom: 1px solid #ddd;
-    }
+h1,
+h2 {
+  margin-bottom: 18px;
+}
 
-    .order-total {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 18px;
-      font-size: 21px;
-      font-weight: bold;
-    }
+.field {
+  margin-bottom: 14px;
+}
 
-    .payment-box {
-      background: #f8fafc;
-      border: 1px solid #ddd;
-      padding: 18px;
-      border-radius: 8px;
-      line-height: 1.6;
-    }
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
 
-    .payment-email {
-      font-size: 18px;
-      font-weight: bold;
-      word-break: break-word;
-    }
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
 
-    .submit-btn {
-      width: 100%;
-      padding: 16px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 8px;
-      background: #16a34a;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
 
-    .submit-btn:hover {
-      background: #15803d;
-    }
+.payment {
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}
 
-    .submit-btn:disabled {
-      background: #999;
-      cursor: not-allowed;
-    }
+.payment strong {
+  display: block;
+  margin-bottom: 6px;
+}
 
-    .notice {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #555;
-    }
+.skrill {
+  font-size: 18px;
+  font-weight: bold;
+  word-break: break-word;
+}
 
-    .error {
-      color: #dc2626;
-      margin-top: 12px;
-      display: none;
-    }
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
 
-    @media (max-width: 600px) {
-      .container {
-        margin-top: 15px;
-      }
+.item-name {
+  font-weight: bold;
+}
 
-      .box {
-        padding: 17px;
-      }
+.item-small {
+  color: #666;
+  font-size: 13px;
+  margin-top: 4px;
+}
 
-      .order-item {
-        font-size: 14px;
-      }
-    }
-  </style></head><body><header>
-  <h1>PolandShop</h1>
-  <a href="cart.html">Back to Cart</a>
-</header><div class="container">  <!-- CUSTOMER INFORMATION -->  <div class="box">
-    <h2>Delivery Information</h2><form id="checkoutForm">
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  font-size: 22px;
+  font-weight: bold;
+}
 
-  <label for="fullName">Full Name *</label>
-  <input
-    type="text"
-    id="fullName"
-    name="fullName"
-    required
-    placeholder="Enter your full name"
-  >
+.submit {
+  width: 100%;
+  border: none;
+  background: #e11d48;
+  color: white;
+  padding: 14px;
+  border-radius: 7px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 18px;
+}
 
-  <label for="phone">Phone Number *</label>
-  <input
-    type="tel"
-    id="phone"
-    name="phone"
-    required
-    placeholder="Enter your phone number"
-  >
+.submit:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
 
-  <label for="email">Email Address *</label>
-  <input
-    type="email"
-    id="email"
-    name="email"
-    required
-    placeholder="Enter your email address"
-  >
+.message {
+  padding: 12px;
+  border-radius: 7px;
+  margin-bottom: 15px;
+  display: none;
+}
 
-  <label for="country">Country *</label>
-  <input
-    type="text"
-    id="country"
-    name="country"
-    required
-    placeholder="Enter your country"
-  >
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
 
-  <label for="city">City / Town *</label>
-  <input
-    type="text"
-    id="city"
-    name="city"
-    required
-    placeholder="Enter your city or town"
-  >
-
-  <label for="address">Delivery Address *</label>
-  <textarea
-    id="address"
-    name="address"
-    required
-    placeholder="Enter your complete delivery address"
-  ></textarea>
-
-  <label for="notes">Additional Delivery Notes</label>
-  <textarea
-    id="notes"
-    name="notes"
-    placeholder="Optional instructions for delivery"
-  ></textarea>
-
-</form>
-
-  </div>  <!-- ORDER SUMMARY -->  <div class="box">
-    <h2>Order Summary</h2><div id="orderItems"></div>
-
-<div class="order-total">
-  <span>Total</span>
-  <span id="orderTotal">$0.00</span>
-</div>
-
-  </div>  <!-- PAYMENT -->  <div class="box"><h2>Skrill Payment</h2>
-
-<div class="payment-box">
-
-  <p>
-    We accept payment through Skrill.
-  </p>
-
-  <br>
-
-  <p>
-    After submitting your order, please send the exact order total
-    to our Skrill account:
-  </p>
-
-  <br>
-
-  <p class="payment-email">
-    YOUR-SKRILL-EMAIL
-  </p>
-
-  <br>
-
-  <p>
-    Please include your name or order reference in the Skrill
-    payment note so that we can identify your payment.
-  </p>
-
-  <p class="notice">
-    Your order will be reviewed after payment confirmation.
-    Delivery will then be arranged to the address you provided.
-  </p>
-
-</div>
-
-<div id="errorMessage" class="error"></div>
-
-<button
-  type="button"
-  id="submitOrder"
-  class="submit-btn"
-  onclick="submitOrder()"
->
-  Submit Order
-</button>
-
-  </div></div><script>
-
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  function formatPrice(price) {
-    return "$" + Number(price).toFixed(2);
+@media (max-width: 750px) {
+  .layout {
+    grid-template-columns: 1fr;
   }
+}
+</style>
+</head>
 
-  function escapeHtml(text) {
-    return String(text)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
+<body>
 
-  function calculateTotal() {
+<header>
+  <div class="header-inner">
 
-    return cart.reduce(function(total, item) {
+    <div class="logo">
+      PolandShop
+    </div>
 
-      const price = Number(item.price) || 0;
-      const quantity = Number(item.quantity) || 1;
+    <a href="cart.html">
+      Back to Cart
+    </a>
 
-      return total + (price * quantity);
+  </div>
+</header>
 
-    }, 0);
+<main class="container">
 
-  }
+  <div
+    id="message"
+    class="message error"
+  ></div>
 
-  function displayOrder() {
+  <div class="layout">
 
-    const orderItems = document.getElementById("orderItems");
+    <section class="box">
 
-    if (!cart.length) {
+      <h1>
+        Checkout
+      </h1>
 
-      orderItems.innerHTML = `
-        <p>Your cart is empty.</p>
-      `;
+      <div class="payment">
 
-      document.getElementById("orderTotal").textContent = "$0.00";
+        <strong>
+          Manual Skrill Payment
+        </strong>
 
-      document.getElementById("submitOrder").disabled = true;
+        <p>
+          After submitting your order,
+          send your payment through Skrill to:
+        </p>
 
-      return;
-    }
-
-    let html = "";
-
-    cart.forEach(function(item) {
-
-      const price = Number(item.price) || 0;
-      const quantity = Number(item.quantity) || 1;
-      const total = price * quantity;
-
-      html += `
-        <div class="order-item">
-          <span>
-            ${escapeHtml(item.name || "Product")}
-            × ${quantity}
-          </span>
-
-          <strong>
-            ${formatPrice(total)}
-          </strong>
+        <div class="skrill">
+          cynthiakp4465@gmail.com
         </div>
-      `;
 
-    });
+        <p style="margin-top:8px;">
+          Your order will remain pending
+          until payment is confirmed.
+        </p>
 
-    orderItems.innerHTML = html;
+      </div>
 
-    document.getElementById("orderTotal").textContent =
-      formatPrice(calculateTotal());
+      <form id="checkoutForm">
+
+        <div class="field">
+          <label for="fullName">
+            Full Name
+          </label>
+
+          <input
+            id="fullName"
+            required
+            maxlength="200"
+          >
+        </div>
+
+        <div class="field">
+          <label for="phone">
+            Phone Number
+          </label>
+
+          <input
+            id="phone"
+            type="tel"
+            required
+            maxlength="50"
+          >
+        </div>
+
+        <div class="field">
+          <label for="email">
+            Email Address
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            required
+            maxlength="200"
+          >
+        </div>
+
+        <div class="field">
+          <label for="country">
+            Country
+          </label>
+
+          <input
+            id="country"
+            value="Poland"
+            required
+            maxlength="100"
+          >
+        </div>
+
+        <div class="field">
+          <label for="city">
+            City
+          </label>
+
+          <input
+            id="city"
+            required
+            maxlength="100"
+          >
+        </div>
+
+        <div class="field">
+          <label for="address">
+            Delivery Address
+          </label>
+
+          <textarea
+            id="address"
+            required
+            maxlength="500"
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label for="notes">
+            Order Notes
+            (Optional)
+          </label>
+
+          <textarea
+            id="notes"
+            maxlength="1000"
+          ></textarea>
+        </div>
+
+        <button
+          id="submitButton"
+          class="submit"
+          type="submit"
+        >
+          Submit Order
+        </button>
+
+      </form>
+
+    </section>
+
+    <aside class="box">
+
+      <h2>
+        Order Summary
+      </h2>
+
+      <div id="items"></div>
+
+      <div class="total">
+
+        <span>
+          Total
+        </span>
+
+        <span id="total">
+          PLN 0.00
+        </span>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+</main>
+
+<script>
+
+const CART_KEY =
+  "polandShopCart";
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function money(value) {
+  return "PLN " +
+    Number(value).toFixed(2);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      function(character) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[character];
+      }
+    );
+}
+
+function getCart() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem(
+        CART_KEY
+      )
+    ) || [];
+
+  } catch {
+
+    return [];
 
   }
+}
 
-  async function submitOrder() {
+const cart =
+  getCart();
 
-    const form = document.getElementById("checkoutForm");
-    const errorMessage = document.getElementById("errorMessage");
-    const submitButton = document.getElementById("submitOrder");
+if (!cart.length) {
 
-    errorMessage.style.display = "none";
+  $("message").textContent =
+    "Your cart is empty. Please add a product before checkout.";
 
-    if (!cart.length) {
+  $("message").style.display =
+    "block";
 
-      errorMessage.textContent =
-        "Your cart is empty.";
+  $("submitButton").disabled =
+    true;
+}
 
-      errorMessage.style.display = "block";
+function renderSummary() {
 
-      return;
-    }
+  let total = 0;
 
-    if (!form.checkValidity()) {
+  $("items").innerHTML =
+    cart.map(
+      function(item) {
 
-      form.reportValidity();
+        const price =
+          Number(item.price) || 0;
 
-      return;
-    }
+        const quantity =
+          Number(item.quantity) || 1;
 
-    const customer = {
+        const lineTotal =
+          price * quantity;
 
-      fullName:
-        document.getElementById("fullName").value.trim(),
+        total += lineTotal;
 
-      phone:
-        document.getElementById("phone").value.trim(),
+        return `
+          <div class="item">
 
-      email:
-        document.getElementById("email").value.trim(),
+            <div>
 
-      country:
-        document.getElementById("country").value.trim(),
+              <div class="item-name">
+                ${escapeHtml(item.name)}
+              </div>
 
-      city:
-        document.getElementById("city").value.trim(),
+              <div class="item-small">
+                ${quantity} × ${money(price)}
+              </div>
 
-      address:
-        document.getElementById("address").value.trim(),
+            </div>
 
-      notes:
-        document.getElementById("notes").value.trim()
+            <strong>
+              ${money(lineTotal)}
+            </strong>
 
-    };
+          </div>
+        `;
 
-    const order = {
+      }
+    ).join("");
 
-      customer: customer,
+  $("total").textContent =
+    money(total);
+}
 
-      items: cart,
+renderSummary();
 
-      total: calculateTotal(),
+$("checkoutForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
 
-      paymentMethod: "Skrill",
+      event.preventDefault();
 
-      paymentStatus: "Pending",
+      if (!cart.length) {
+        return;
+      }
 
-      createdAt: new Date().toISOString()
+      const button =
+        $("submitButton");
 
-    };
+      const message =
+        $("message");
 
-    submitButton.disabled = true;
-    submitButton.textContent = "Submitting Order...";
+      message.style.display =
+        "none";
 
-    try {
+      button.disabled =
+        true;
 
-      const response = await fetch("/api/orders", {
+      button.textContent =
+        "Submitting Order...";
 
-        method: "POST",
+      const payload = {
 
-        headers: {
-          "Content-Type": "application/json"
+        customer: {
+
+          fullName:
+            $("fullName").value.trim(),
+
+          phone:
+            $("phone").value.trim(),
+
+          email:
+            $("email").value.trim(),
+
+          country:
+            $("country").value.trim(),
+
+          city:
+            $("city").value.trim(),
+
+          address:
+            $("address").value.trim(),
+
+          notes:
+            $("notes").value.trim()
+
         },
 
-        body: JSON.stringify(order)
+        items:
+          cart.map(
+            function(item) {
 
-      });
+              return {
+                productId:
+                  String(
+                    item.productId
+                  ),
 
-      const data = await response.json();
+                quantity:
+                  Number(
+                    item.quantity
+                  )
+              };
 
-      if (!response.ok) {
+            }
+          ),
 
-        throw new Error(
-          data.message || "Unable to submit order."
+        paymentMethod:
+          "Skrill"
+
+      };
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/orders",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify(
+                  payload
+                )
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.message ||
+            "Unable to submit order."
+          );
+        }
+
+        if (
+          data.order
+        ) {
+
+          localStorage.setItem(
+            "lastOrder",
+            JSON.stringify(
+              data.order
+            )
+          );
+
+        }
+
+        localStorage.removeItem(
+          CART_KEY
         );
+
+        window.location.href =
+          "success.html?orderId=" +
+          encodeURIComponent(
+            data.orderId
+          );
+
+      } catch (error) {
+
+        message.textContent =
+          error.message;
+
+        message.style.display =
+          "block";
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Submit Order";
 
       }
 
-      localStorage.removeItem("cart");
-
-      localStorage.setItem(
-        "lastOrder",
-        JSON.stringify(data.order || order)
-      );
-
-      window.location.href = "success.html";
-
-    } catch (error) {
-
-      console.error(error);
-
-      errorMessage.textContent =
-        error.message ||
-        "Something went wrong. Please try again.";
-
-      errorMessage.style.display = "block";
-
-      submitButton.disabled = false;
-      submitButton.textContent = "Submit Order";
-
     }
+  );
 
-  }
+</script>
 
-  displayOrder();
-
-</script></body>
+</body>
 </html>
