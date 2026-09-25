@@ -1,238 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Place Order - PolandShop</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>Order - PolandShop</title>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f6f8;
-      color: #222;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 18px 20px;
-      text-align: center;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 24px;
-    }
+header {
+  background: #111;
+  color: white;
+  padding: 15px;
+}
 
-    .container {
-      max-width: 600px;
-      margin: 25px auto;
-      padding: 20px;
-    }
+.header-inner {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+}
 
-    h2 {
-      margin-top: 0;
-      text-align: center;
-    }
+header a {
+  color: white;
+  text-decoration: none;
+}
 
-    .product-box {
-      background: #f3f4f6;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
+.container {
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
 
-    .product-box p {
-      margin: 7px 0;
-    }
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
 
-    label {
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
+h1,
+h2 {
+  margin-bottom: 18px;
+}
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 7px;
-      font-size: 15px;
-    }
+.product-summary {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+.product-summary img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #eee;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 7px;
-      background: #16a34a;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.price {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 8px;
+}
 
-    button:hover {
-      background: #15803d;
-    }
+.field {
+  margin-bottom: 14px;
+}
 
-    .message {
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 7px;
-      display: none;
-      text-align: center;
-    }
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
 
-    .error {
-      background: #fee2e2;
-      color: #991b1b;
-    }
+input,
+textarea {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
 
-    .loading {
-      opacity: 0.7;
-      pointer-events: none;
-    }
+textarea {
+  min-height: 80px;
+}
 
-    .payment-note {
-      margin-top: 18px;
-      padding: 14px;
-      background: #fff7ed;
-      border-left: 4px solid #f97316;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-  </style>
+.total {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  background: #e11d48;
+  color: white;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit:disabled {
+  background: #999;
+}
+
+.message {
+  display: none;
+  padding: 12px;
+  border-radius: 7px;
+  margin-bottom: 15px;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>PolandShop</h1>
+  <div class="header-inner">
+
+    <div class="logo">
+      PolandShop
+    </div>
+
+    <a href="index.html">
+      Shop
+    </a>
+
+  </div>
 </header>
 
-<div class="container">
+<main class="container">
 
-  <div class="card">
+  <div
+    id="message"
+    class="message error"
+  ></div>
 
-    <h2>Place Your Order</h2>
+  <section
+    id="productBox"
+    class="box"
+  >
+    Loading product...
+  </section>
 
-    <div class="product-box">
-      <p><strong>Product:</strong> <span id="productName">Loading...</span></p>
-      <p><strong>Price:</strong> USD <span id="productPrice">0.00</span></p>
-      <p><strong>Quantity:</strong> <span id="productQuantity">1</span></p>
-      <p><strong>Total:</strong> USD <span id="productTotal">0.00</span></p>
-    </div>
+  <section class="box">
+
+    <h2>
+      Customer Information
+    </h2>
 
     <form id="orderForm">
 
-      <label for="fullName">Full Name</label>
-      <input
-        type="text"
-        id="fullName"
-        name="fullName"
-        placeholder="Enter your full name"
-        required
-      >
+      <div class="field">
+        <label>
+          Full Name
+        </label>
 
-      <label for="phone">Phone Number</label>
-      <input
-        type="tel"
-        id="phone"
-        name="phone"
-        placeholder="Enter your phone number"
-        required
-      >
-
-      <label for="email">Email Address</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Enter your email"
-        required
-      >
-
-      <label for="country">Country</label>
-      <input
-        type="text"
-        id="country"
-        name="country"
-        placeholder="Enter your country"
-        required
-      >
-
-      <label for="city">City / Town</label>
-      <input
-        type="text"
-        id="city"
-        name="city"
-        placeholder="Enter your city or town"
-        required
-      >
-
-      <label for="address">Delivery Address</label>
-      <textarea
-        id="address"
-        name="address"
-        placeholder="Enter your complete delivery address"
-        required
-      ></textarea>
-
-      <label for="notes">Additional Delivery Notes</label>
-      <textarea
-        id="notes"
-        name="notes"
-        placeholder="Optional delivery instructions"
-      ></textarea>
-
-      <div class="payment-note">
-        <strong>Payment:</strong><br>
-        After submitting your order, you will receive the payment instructions for completing payment through Skrill.
+        <input
+          id="fullName"
+          required
+          maxlength="200"
+        >
       </div>
 
-      <button type="submit" id="submitButton">
+      <div class="field">
+        <label>
+          Phone Number
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          required
+          maxlength="50"
+        >
+      </div>
+
+      <div class="field">
+        <label>
+          Email Address
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          required
+          maxlength="200"
+        >
+      </div>
+
+      <div class="field">
+        <label>
+          Country
+        </label>
+
+        <input
+          id="country"
+          value="Poland"
+          required
+          maxlength="100"
+        >
+      </div>
+
+      <div class="field">
+        <label>
+          City
+        </label>
+
+        <input
+          id="city"
+          required
+          maxlength="100"
+        >
+      </div>
+
+      <div class="field">
+        <label>
+          Delivery Address
+        </label>
+
+        <textarea
+          id="address"
+          required
+          maxlength="500"
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label>
+          Notes
+        </label>
+
+        <textarea
+          id="notes"
+          maxlength="1000"
+        ></textarea>
+      </div>
+
+      <button
+        id="submit"
+        class="submit"
+        type="submit"
+      >
         Submit Order
       </button>
 
-      <div id="message" class="message"></div>
-
     </form>
 
-  </div>
+  </section>
 
-</div>
+</main>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
 
-  const productName =
-    params.get("product") ||
-    localStorage.getItem("productName") ||
-    "Selected Product";
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const productId =
+  params.get("id");
+
+let product = null;
+
+let quantity =
+  Number(
+    params.get("quantity")
+  ) || 1;
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function money(value) {
+  return "PLN " +
+    Number(value).toFixed(2);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      function(character) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[character];
+      }
+    );
+}
+
+function getPrice(product) {
 
   const price =
-    parseFloat(
-      params.get("price") ||
-      localStorage
+    Number(product.price);
+
+  const discount =
+    Number(product.discountPrice);
+
+  if (
+    Number.isFinite(discount) &&
+    discount > 0 &&
+    discount < price
+  ) {
+    return discount;
+  }
+
+  return price;
+}
+
+async function loadProduct() {
+
+  if (!productId) {
+
+    $("productBox").textContent =
+      "Product ID is missing.";
+
+    $("submit").disabled =
+      true;
+
+    return;
+  }
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/products/" +
+        encodeURIComponent(
+          productId
+        )
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message ||
+        "Product not found."
+      );
+    }
+
+    product = data;
+
+    const stock =
+      Number(product.stock);
+
+    if (
+      stock < 1
+    ) {
+
+      $("productBox").innerHTML =
+        "<h2>Product is out of stock.</h2>";
+
+      $("submit").disabled =
+        true;
+
+      return;
+    }
+
+    quantity =
+      Math.max(
+        1,
+        Math.min(
+          stock,
+          quantity
+        )
+      );
+
+    const price =
+      getPrice(product);
+
+    $("productBox").innerHTML = `
+
+      <h1>
+        Order Product
+      </h1>
+
+      <div class="product-summary">
+
+        <img
+          src="${
+            escapeHtml(
+              product.images?.[0] ||
+              "https://via.placeholder.com/200x200?text=Product"
+            )
+          }"
+          alt="${escapeHtml(product.name)}"
+        >
+
+        <div>
+
+          <h2>
+            ${escapeHtml(product.name)}
+          </h2>
+
+          <div>
+            Quantity:
+            ${quantity}
+          </div>
+
+          <div class="price">
+            ${money(price)}
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="total">
+        Total:
+        ${money(price * quantity)}
+      </div>
+    `;
+
+  } catch (error) {
+
+    $("productBox").textContent =
+      error.message;
+
+    $("submit").disabled =
+      true;
+  }
+}
+
+$("orderForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+      if (!product) {
+        return;
+      }
+
+      const button =
+        $("submit");
+
+      const message =
+        $("message");
+
+      message.style.display =
+        "none";
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "Submitting...";
+
+      const payload = {
+
+        customer: {
+
+          fullName:
+            $("fullName").value.trim(),
+
+          phone:
+            $("phone").value.trim(),
+
+          email:
+            $("email").value.trim(),
+
+          country:
+            $("country").value.trim(),
+
+          city:
+            $("city").value.trim(),
+
+          address:
+            $("address").value.trim(),
+
+          notes:
+            $("notes").value.trim()
+
+        },
+
+        items: [
+          {
+            productId:
+              String(product._id),
+
+            quantity
+          }
+        ],
+
+        paymentMethod:
+          "Skrill"
+
+      };
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/orders",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify(
+                  payload
+                )
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.message ||
+            "Unable to submit order."
+          );
+        }
+
+        if (data.order) {
+
+          localStorage.setItem(
+            "lastOrder",
+            JSON.stringify(
+              data.order
+            )
+          );
+
+        }
+
+        window.location.href =
+          "success.html?orderId=" +
+          encodeURIComponent(
+            data.orderId
+          );
+
+      } catch (error) {
+
+        message.textContent =
+          error.message;
+
+        message.style.display =
+          "block";
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Submit Order";
+      }
+
+    }
+  );
+
+loadProduct();
+
+</script>
+
+</body>
+</html>
